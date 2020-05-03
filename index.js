@@ -2,6 +2,8 @@
 
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const { config } = require('./config/index');
@@ -10,10 +12,6 @@ mongoose.connect('mongodb://localhost/Usuario', {useNewUrlParser: true, useUnifi
     if(err){
         console.log('Error: connecting to Database. '+err);
     }
-
-    app.listen(config.port, function(){
-        console.log('Node server running on')
-    });
 });
 require('./modelo/usuario');
 require('./modelo/estudiante');
@@ -23,6 +21,7 @@ const estudianteController = require('./controllers/estudianteApp');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.set('port', config.port);
 
 const usuario = express.Router();
 
@@ -50,3 +49,7 @@ function getToken(req, res, next){
         res.sendStatus(403);
     }
 }
+
+server.listen(app.get('port'), () => {
+    console.log(`Node server running on ${app.get('port')}`);
+});
