@@ -20,7 +20,9 @@ exports.saveEstudiante = (req, res) => {
                 documento: req.body.documento,
                 grado: req.body.grado,
                 barrio: req.body.barrio,
-                estrato: req.body.estrato
+                estrato: req.body.estrato,
+                correo: req.body.correo,
+                password: req.body.password
             });
 
             Estudiante.findOne({ 'documento': req.body.documento }, (err, estudian) => {
@@ -35,6 +37,8 @@ exports.saveEstudiante = (req, res) => {
                     estudiante.grado = req.body.grado;
                     estudiante.barrio = req.body.barrio;
                     estudiante.estrato = req.body.estrato;
+                    estudiante.correo = req.body.correo;
+                    estudiante.password = req.body.password;
                 }
 
 
