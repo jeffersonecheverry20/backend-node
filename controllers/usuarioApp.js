@@ -50,7 +50,7 @@ exports.loginUsuario = function(req, res){
             res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
         }
 
-        if(typeof usuario !== 'undefined' && typeof usuario !== null){
+        if(usuario !== 'undefined' &&  usuario !== null){
             if(req.body.password === usuario.password){
                 const email = usuario.email;
                 const token = jwt.sign({email}, 'my_secret_key');
