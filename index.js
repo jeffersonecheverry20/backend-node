@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://jsecheverry:mongodbprueba@cluster0-tdblj.mongodb.net/test?retryWrites=true&w=majority', {useUnifiedTopology: true, useFindAndModify: false}, function(err, res){
     if(err){
         console.log('Error: connecting to Database. '+err);
+
     }
 });
 require('./modelo/usuario');
