@@ -47,19 +47,20 @@ exports.findAllUsuarios = function(req, res){
 exports.loginUsuario = function(req, res){
     Usuario.findOne({'email': req.body.email}, (err, usuario) => {
         if(err){
+            console.log(err);
             res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
         }
 
         if(usuario !== 'undefined' &&  usuario !== null){
             if(req.body.password === usuario.password){
                 const email = usuario.email;
-                const token = jwt.sign({email}, 'my_secret_key');
+                const token = jwt.sign({email}, 'my_secret_key', {expiresIn: '5h'});
                 res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': token});
             }else{
                 res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'email y/o password incorrecto'});
             }
         }else{
-            res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'usuario no existe en nuestra base de datos'});
+            res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'el email del usuario no existe en nuestra base de datos'});
         }
 
         
