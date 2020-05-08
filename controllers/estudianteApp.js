@@ -5,7 +5,7 @@ var Estudiante = mongoose.model('Estudiante');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
 
-//Crea y actualiza al estudiante
+//Crea y actualiza al estudiantee
 exports.saveEstudiante = (req, res) => {
     //console.log(req.body);
     //console.log(req.token);
