@@ -16,8 +16,12 @@ mongoose.connect('mongodb+srv://jsecheverry:mongodbprueba@cluster0-tdblj.mongodb
 });
 require('./modelo/usuario');
 require('./modelo/estudiante');
+require('./modelo/subsidio');
+require('./modelo/reporte');
 const usuarioController = require('./controllers/usuarioApp');
 const estudianteController = require('./controllers/estudianteApp');
+const subsidioController = require('./controllers/subsidioApp');
+const reporteController = require('./controllers/reporteApp');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,6 +39,16 @@ usuario.route('/saveEstudiante').post(getToken, estudianteController.saveEstudia
 usuario.route('/findAllEstudiantes').get(getToken, estudianteController.findAllEstudiantes);
 usuario.route('/findEstudiante/:documento').get(getToken, estudianteController.findEstudiante);
 usuario.route('/deleteEstudiante/:documento').delete(getToken, estudianteController.deleteEstudiante);
+
+usuario.route('/saveSubsidio').post(getToken, subsidioController.saveSubsidio);
+usuario.route('/findAllSubsidios').get(getToken, subsidioController.findAllSubsidios);
+usuario.route('/findSubsidio/:estudiante').get(getToken, subsidioController.findSubsidio);
+usuario.route('/deleteSubsidio/:estudiante').delete(getToken, subsidioController.deleteSubsidio);
+
+usuario.route('/saveReporte').post(getToken, reporteController.saveReporte);
+usuario.route('/findAllReportes').get(getToken, reporteController.findAllReportes);
+usuario.route('/findReporte/:subsidio').get(getToken, reporteController.findReporte);
+usuario.route('/deleteReporte/:subsidio').delete(getToken, reporteController.deleteReporte);
 
 app.use(usuario);
 
