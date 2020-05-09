@@ -47,7 +47,7 @@ function getToken(req, res, next){
         req.token = token;
         next();
     } else {
-        res.sendStatus(403);
+        res.status(403).send({message: "Tu petición no tiene cabecera de autorización"});
     }
 }
 
