@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 const jwt = require('jsonwebtoken');
-const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
+const { codigoRetorno, mensajeRetorno, codigoHttp, rol } = require('../constants/constants');
 
 exports.addUsuario = function(req, res){
     //console.log('POST');
@@ -11,7 +11,8 @@ exports.addUsuario = function(req, res){
 
     var usuario = new Usuario({
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        rol: req.body.rol
     });
 
     usuario.save(function(err, usuario){
@@ -55,7 +56,7 @@ exports.loginUsuario = function(req, res){
             if(req.body.password === usuario.password){
                 const email = usuario.email;
                 const token = jwt.sign({email}, 'my_secret_key', {expiresIn: '5h'});
-                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': token});
+                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': {'token': token, 'rol': usuario.rol}});
             }else{
                 res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'email y/o password incorrecto'});
             }
