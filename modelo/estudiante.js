@@ -10,8 +10,8 @@ var estudianteSchema = new Schema({
     grado: {type: Number},
     barrio: {type: String},
     estrato: {type: Number},
-    correo:{type: String},
-    password:{type: String}
+    //correo:{type: String},
+    //password:{type: String}
 });
 
 module.exports = mongoose.model('Estudiante', estudianteSchema);
