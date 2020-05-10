@@ -62,7 +62,7 @@ exports.loginUsuario = function(req, res){
     const pos1 = emailRequest.indexOf('@');
     const pos2 = emailRequest.indexOf('.');
 
-    const tipoUsuario = email.substring(pos1 + 1, pos2);
+    const tipoUsuario = emailRequest.substring(pos1 + 1, pos2);
 
     console.log("El email es ", emailRequest);
     console.log("El tipo de usuario es ", tipoUsuario);
