@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 const jwt = require('jsonwebtoken');
-const { codigoRetorno, mensajeRetorno, codigoHttp, rol } = require('../constants/constants');
+const { codigoRetorno, mensajeRetorno, codigoHttp} = require('../constants/constants');
 
 exports.addUsuario = function(req, res){
     //console.log('POST');
@@ -42,6 +42,16 @@ exports.findAllUsuarios = function(req, res){
         }
 
         res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': usuario});
+    });
+}
+
+exports.deleteUsuario = function(req, res){
+    Usuario.findOneAndDelete({'email': req.params.correo}, (err, result) => {
+        if(err){
+            return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
+        }
+
+        res.status(codigoHttp.respuestaExitosa).json({ 'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': 'Usuario Eliminado' });
     });
 }
 

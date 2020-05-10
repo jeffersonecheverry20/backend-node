@@ -16,14 +16,8 @@ const codigoHttp = {
     recursoNoEncontrado: 400
 };
 
-const rol = {
-    admin: 'Administrador',
-    est: 'Estudiante'
-}
-
 module.exports = {
     codigoRetorno,
     mensajeRetorno,
-    codigoHttp,
-    rol
+    codigoHttp
 }
