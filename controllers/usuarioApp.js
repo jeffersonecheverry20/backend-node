@@ -46,7 +46,7 @@ exports.findAllUsuarios = function(req, res){
 }
 
 exports.deleteUsuario = function(req, res){
-    Usuario.findOneAndDelete({'email': req.params.correo}, (err, result) => {
+    Usuario.findOneAndDelete({'email': req.params.email}, (err, result) => {
         if(err){
             return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
         }
