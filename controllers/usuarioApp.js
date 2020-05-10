@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
+var Estudiante = mongoose.model('Estudiante');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp} = require('../constants/constants');
 
@@ -56,24 +57,59 @@ exports.deleteUsuario = function(req, res){
 }
 
 exports.loginUsuario = function(req, res){
-    Usuario.findOne({'email': req.body.email}, (err, usuario) => {
-        if(err){
-            console.log(err);
-            res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
-        }
+    
+    const emailRequest = req.body.email;
+    const pos1 = emailRequest.indexOf('@');
+    const pos2 = emailRequest.indexOf('.');
 
-        if(usuario !== 'undefined' &&  usuario !== null){
-            if(req.body.password === usuario.password){
-                const email = usuario.email;
-                const token = jwt.sign({email}, 'my_secret_key', {expiresIn: '5h'});
-                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': {'token': token, 'rol': usuario.rol}});
-            }else{
-                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'email y/o password incorrecto'});
+    const tipoUsuario = email.substring(pos1 + 1, pos2);
+
+    console.log("El email es ", emailRequest);
+    console.log("El tipo de usuario es ", tipoUsuario);
+    if(tipoUsuario === 'admin'){
+        Usuario.findOne({'email': emailRequest}, (err, usuario) => {
+            if(err){
+                console.log(err);
+                res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
             }
-        }else{
-            res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'el email del usuario no existe en nuestra base de datos'});
-        }
+    
+            if(usuario !== 'undefined' &&  usuario !== null){
+                if(req.body.password === usuario.password){
+                    const email = usuario.email;
+                    const token = jwt.sign({email}, 'my_secret_key', {expiresIn: '5h'});
+                    res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': {'token': token, 'rol': 'Administrador'}});
+                }else{
+                    res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'email y/o password incorrecto'});
+                }
+            }else{
+                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'el email del usuario no existe en nuestra base de datos'});
+            }
+    
+            
+        });
+    } else if(tipoUsuario === 'estudiante'){
+        Estudiante.findOne({'correo': emailRequest}, (err, estudiante) => {
+            if(err){
+                console.log(err);
+                res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
+            }
 
-        
-    });
+            if(estudiante !== 'undefined' &&  estudiante !== null){
+                if(req.body.password === estudiante.password){
+                    const email = estudiante.correo;
+                    const token = jwt.sign({email}, 'my_secret_key', {expiresIn: '5h'});
+                    res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': {'token': token, 'rol': 'Estudiante'}});
+                }else{
+                    res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'email y/o password incorrecto'});
+                }
+            }else{
+                res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'el email del usuario no existe en nuestra base de datos'});
+            }
+
+        });
+    }else{
+        res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': 'el dominio del email no corresponde, por favor validarlo'});
+    }
+    
+    
 };
