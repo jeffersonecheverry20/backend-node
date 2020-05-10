@@ -35,7 +35,7 @@ usuario.route('/saveUsuario').post(usuarioController.addUsuario);
 usuario.route('/findUsuario').post(usuarioController.findUsuario);
 usuario.route('/findAllUsuarios').get(usuarioController.findAllUsuarios);
 usuario.route('/login').post(usuarioController.loginUsuario);
-usuario.route('/delete/:email').delete(usuarioController.deleteUsuario);
+usuario.route('/deleteUsuario/:email').delete(usuarioController.deleteUsuario);
 
 usuario.route('/saveEstudiante').post(getToken, estudianteController.saveEstudiante);
 usuario.route('/findAllEstudiantes').get(getToken, estudianteController.findAllEstudiantes);
