@@ -48,8 +48,10 @@ exports.findDateSubsidios = (req, res) => {
                         console.log("En la posicion i el subsidio es ", subsidio[i]);
                         console.log("La fecha es ", subsidio[i].fecha);
                         console.log("El getTime es ", subsidio[i].fecha.getTime());
+                        console.log("El gettime Init es ",dateInit.getTime());
+                        console.log("El gettime Final es ",dateFinal.getTime());
                         if(subsidio[i].fecha.getTime() >= dateInit.getTime() && subsidio[i].fecha.getTime() <= dateFinal.getTime()){
-                            subsidioResult[i] = subsidio;
+                            subsidioResult[i] = subsidio[i];
                         }
                     }
                                         
