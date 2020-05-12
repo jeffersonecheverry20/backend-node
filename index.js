@@ -18,10 +18,12 @@ require('./modelo/usuario');
 require('./modelo/estudiante');
 require('./modelo/subsidio');
 require('./modelo/reporte');
+require('./modelo/consultaSubsidio');
 const usuarioController = require('./controllers/usuarioApp');
 const estudianteController = require('./controllers/estudianteApp');
 const subsidioController = require('./controllers/subsidioApp');
 const reporteController = require('./controllers/reporteApp');
+const consultaSubsidio = require('./controllers/consultaSubsidioApp');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -51,6 +53,8 @@ usuario.route('/saveReporte').post(getToken, reporteController.saveReporte);
 usuario.route('/findAllReportes').get(getToken, reporteController.findAllReportes);
 usuario.route('/findReporte/:subsidio').get(getToken, reporteController.findReporte);
 usuario.route('/deleteReporte/:subsidio').delete(getToken, reporteController.deleteReporte);
+
+usuario.route('/findAllConsulta').get(getToken, consultaSubsidio.findAllConsultaSubsidios);
 
 app.use(usuario);
 

@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 var Subsidio = mongoose.model('Subsidio');
+var consultaSubsidio = mongoose.model('consultaSubsidio');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
 
@@ -89,6 +90,22 @@ exports.findSubsidio = (req, res) => {
                     }
                 }
             });
+
+            var date = new Date();
+
+            var consulta =  new consultaSubsidio({
+                documento: req.params.estudiante,
+                fecha: new Date(date.getFullYear(), date.getMonth()+1, date.getDate())
+            });
+
+            consulta.save((err, result) => {
+                if(err){
+                    console.log("Se presento error al guardar en consulta subsidio ", err.message);
+                }
+
+                console.log("Guarda en la tabla consultasubsidio ", result);
+            })
+            
         }
     });
 };
