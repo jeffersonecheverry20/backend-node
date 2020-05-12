@@ -46,6 +46,8 @@ exports.findDateSubsidios = (req, res) => {
                     var dateFinal = req.body.dateFinal;
                     for(var i = 0; i < subsidio.length; i++){
                         console.log("En la posicion i el subsidio es ", subsidio[i]);
+                        console.log("La fecha es ", subsidio[i].fecha);
+                        console.log("El getTime es ", subsidio[i].fecha.getTime());
                         if(subsidio.fecha.getTime() >= dateInit.getTime() && subsidio.fecha.getTime() <= dateFinal.getTime()){
                             subsidioResult[i] = subsidio;
                         }
