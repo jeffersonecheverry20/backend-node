@@ -40,10 +40,12 @@ exports.findDateSubsidios = (req, res) => {
                 if(subsidio !== null && subsidio !== 'undefined'){
                     
                     var subsidioResult = [];
-
+                    console.log("La fecha inicio es ",req.body.dateInit);
+                    console.log("La fecha final es ", req.body.dateFinal);
+                    var dateInit = req.body.dateInit;
+                    var dateFinal = req.body.dateFinal;
                     for(var i = 0; i < subsidio.length; i++){
-                        var dateInit = req.body.dateInit;
-                        var dateFinal = req.body.dateFinal;
+                        console.log("En la posicion i el subsidio es ", subsidio[i]);
                         if(subsidio.fecha.getTime() >= dateInit.getTime() && subsidio.fecha.getTime() <= dateFinal.getTime()){
                             subsidioResult[i] = subsidio;
                         }
