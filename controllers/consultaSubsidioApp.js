@@ -42,8 +42,9 @@ exports.findDateSubsidios = (req, res) => {
                     var subsidioResult = [];
                     console.log("La fecha inicio es ",req.body.dateInit);
                     console.log("La fecha final es ", req.body.dateFinal);
-                    var dateInit = req.body.dateInit;
-                    var dateFinal = req.body.dateFinal;
+                    var dateInit = new Date(req.body.dateInit);
+                    var dateFinal = new Date(req.body.dateFinal);
+                    var contador  = 0;
                     for(var i = 0; i < subsidio.length; i++){
                         console.log("En la posicion i el subsidio es ", subsidio[i]);
                         console.log("La fecha es ", subsidio[i].fecha);
@@ -51,7 +52,8 @@ exports.findDateSubsidios = (req, res) => {
                         console.log("El gettime Init es ",dateInit.getTime());
                         console.log("El gettime Final es ",dateFinal.getTime());
                         if(subsidio[i].fecha.getTime() >= dateInit.getTime() && subsidio[i].fecha.getTime() <= dateFinal.getTime()){
-                            subsidioResult[i] = subsidio[i];
+                            subsidioResult[contador] = subsidio[i];
+                            contador++;
                         }
                     }
                                         
