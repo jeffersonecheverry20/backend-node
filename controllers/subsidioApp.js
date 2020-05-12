@@ -92,10 +92,13 @@ exports.findSubsidio = (req, res) => {
             });
 
             var date = new Date();
+            console.log(date.getFullYear());
+            console.log(date.getMonth());
+            console.log(date.getDate());
 
             var consulta =  new ConsultaSubsidio({
                 documento: req.params.estudiante,
-                fecha: new Date(date.getFullYear(), date.getMonth()+1, date.getDate())
+                fecha: date
             });
 
             consulta.save((err, result) => {
