@@ -55,6 +55,7 @@ usuario.route('/findReporte/:subsidio').get(getToken, reporteController.findRepo
 usuario.route('/deleteReporte/:subsidio').delete(getToken, reporteController.deleteReporte);
 
 usuario.route('/findAllConsulta').get(getToken, consultaSubsidio.findAllConsultaSubsidios);
+usuario.route('/consultaSubsidio').post(getToken, consultaSubsidio.findDateSubsidios);
 
 app.use(usuario);
 
