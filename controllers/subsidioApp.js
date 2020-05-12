@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 var Subsidio = mongoose.model('Subsidio');
-var consultaSubsidio = mongoose.model('consultaSubsidio');
+var ConsultaSubsidio = mongoose.model('consConsultaSubsidioltaSubsidio');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
 
@@ -93,7 +93,7 @@ exports.findSubsidio = (req, res) => {
 
             var date = new Date();
 
-            var consulta =  new consultaSubsidio({
+            var consulta =  new ConsultaSubsidio({
                 documento: req.params.estudiante,
                 fecha: new Date(date.getFullYear(), date.getMonth()+1, date.getDate())
             });
