@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 var Subsidio = mongoose.model('Subsidio');
-var ConsultaSubsidio = mongoose.model('consConsultaSubsidioltaSubsidio');
+var ConsultaSubsidio = mongoose.model('ConsultaSubsidio');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
 
