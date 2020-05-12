@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-var consultaSubsidio = mongoose.model('consultaSubsidio');
+var ConsultaSubsidio = mongoose.model('ConsultaSubsidio');
 const jwt = require('jsonwebtoken');
 const { codigoRetorno, mensajeRetorno, codigoHttp } = require('../constants/constants');
 
@@ -11,7 +11,7 @@ exports.findAllConsultaSubsidios = (req, res) => {
         if (err) {
             return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
         } else {
-            consultaSubsidio.find((err, subsidio) => {
+            ConsultaSubsidio.find((err, subsidio) => {
                 if (err) {
                     return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
                 }
