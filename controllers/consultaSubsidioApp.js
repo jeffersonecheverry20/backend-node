@@ -51,6 +51,7 @@ exports.findDateSubsidios = (req, res) => {
                     var contador  = 0;
                     console.log("La fecha inicio es ", dateInit);
                     console.log("La fecha final es ", dateFinal);
+                    
                     for(var i = 0; i < subsidio.length; i++){
                         console.log("En la posicion i el subsidio es ", subsidio[i]);
                         console.log("La fecha es ", subsidio[i].fecha);
