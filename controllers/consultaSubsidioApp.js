@@ -76,7 +76,7 @@ exports.findDateSubsidios = (req, res) => {
     });
 }
 
-function getCantidadFechas(subsidioResult) {
+async function getCantidadFechas(subsidioResult) {
     console.log("Entro al metodo getCantidadFechas");
     var fechas = [];
     var contador = 0;
@@ -100,9 +100,9 @@ function getCantidadFechas(subsidioResult) {
     return fechas;
 }
 
-function getListasFechas(subsidioResult) {  
+async function getListasFechas(subsidioResult) {  
     console.log("Entro al metodo getListasFechas");
-    var fechas = getCantidadFechas(subsidioResult);
+    var fechas = await getCantidadFechas(subsidioResult);
     var data = [];
     var listas = [];
     console.log("El tamaño de fechas es ", fechas.length);
@@ -116,10 +116,10 @@ function getListasFechas(subsidioResult) {
     return listas;
 }
 
-function getListasObjetosFechas(subsidioResult) {
+async function getListasObjetosFechas(subsidioResult) {
     console.log("Entro al metodo getListasObjetosFechas");
     var resultado = [];
-    var listas = getListasFechas(subsidioResult);
+    var listas = await getListasFechas(subsidioResult);
     console.log("El tamaño de listas es ",listas.length);
     for(var i = 0; i < listas.length; i++) {
         var lista = listas[i];
