@@ -107,7 +107,7 @@ async function getListasFechas(subsidioResult) {
     var listas = [];
     console.log("El tamaño de fechas es ", fechas.length);
     for(var i = 0; i < fechas.length; i++) {
-        console.log("La fecha para obtener la cantidad de fechas es ",fecha[i]);
+        console.log("La fecha para obtener la cantidad de fechas es ",fechas[i]);
         data = subsidioResult.filter(element => `${element.getDate()}/${element.getMonth()}/${element.getFullYear()}` == fechas[i]);
         data.forEach(element => console.log("El elemento en el foreach es ", element));
         listas[i] = data;
