@@ -32,7 +32,7 @@ exports.findDateSubsidios = (req, res) => {
         if (err) {
             return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
         } else {
-            ConsultaSubsidio.find((err, subsidio) => {
+            ConsultaSubsidio.find(async (err, subsidio) => {
                 if (err) {
                     return res.send(codigoHttp.fallaCodigo, {'codigoRetorno': codigoRetorno.codigoFallido, 'mensaje': mensajeRetorno.mensajeFallido, 'body': err.message});
                 }
@@ -64,7 +64,7 @@ exports.findDateSubsidios = (req, res) => {
                         }
                     }
                     
-                    const resultado = getListasObjetosFechas(subsidioResult);
+                    const resultado = await getListasObjetosFechas(subsidioResult);
 
                     res.status(codigoHttp.respuestaExitosa).json({'codigoRetorno': codigoRetorno.codigoExito, 'mensaje': mensajeRetorno.mensajeExito, 'body': resultado});
                 }else{
