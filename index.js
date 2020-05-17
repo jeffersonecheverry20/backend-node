@@ -47,6 +47,7 @@ usuario.route('/deleteEstudiante/:documento').delete(getToken, estudianteControl
 usuario.route('/saveSubsidio').post(getToken, subsidioController.saveSubsidio);
 usuario.route('/findAllSubsidios').get(getToken, subsidioController.findAllSubsidios);
 usuario.route('/findSubsidio/:estudiante').get(getToken, subsidioController.findSubsidio);
+usuario.route('/findAllDatosSubsidios').post(getToken, subsidioController.findAllDateSubsidios);
 usuario.route('/deleteSubsidio/:estudiante').delete(getToken, subsidioController.deleteSubsidio);
 
 usuario.route('/saveReporte').post(getToken, reporteController.saveReporte);
